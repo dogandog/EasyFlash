@@ -272,11 +272,11 @@ size_t ef_get_env_write_bytes(void) {
  */
 static EfErrCode write_env(const char *key, const char *value) {
     EfErrCode result = EF_NO_ERR;
-    size_t ker_len = strlen(key), value_len = strlen(value), env_str_len;
+    size_t key_len = strlen(key), value_len = strlen(value), env_str_len;
     char *env_cache_bak = (char *)env_cache;
 
     /* calculate ENV storage length, contain '=' and '\0'. */
-    env_str_len = ker_len + value_len + 2;
+    env_str_len = key_len + value_len + 2;
     if (env_str_len % 4 != 0) {
         env_str_len = (env_str_len / 4 + 1) * 4;
     }
@@ -301,7 +301,7 @@ static EfErrCode write_env(const char *key, const char *value) {
     *env_cache_bak = '\0';
     env_cache_bak ++;
     /* fill '\0' for word alignment */
-    memset(env_cache_bak, 0, env_str_len - (ker_len + value_len + 2));
+    memset(env_cache_bak, 0, env_str_len - (key_len + value_len + 2));
     set_env_end_addr(get_env_end_addr() + env_str_len);
     /* ENV ram cache has changed */
     env_cache_changed = true;
