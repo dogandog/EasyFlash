@@ -289,8 +289,8 @@ static EfErrCode write_env(const char *key, const char *value) {
     env_cache_bak += get_env_user_used_size();
 
     /* copy key name */
-    memcpy(env_cache_bak, key, ker_len);
-    env_cache_bak += ker_len;
+    memcpy(env_cache_bak, key, key_len);
+    env_cache_bak += key_len;
     /* copy equal sign */
     *env_cache_bak = '=';
     env_cache_bak++;
